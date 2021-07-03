@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
 
     // Lives counter
     public TextMeshProUGUI livesText;
+
+    // Pause menu
+    public GameObject pauseScreen;
+    private bool isPaused;
     private int lives;
     // Start is called before the first frame update
     void Start()
@@ -33,7 +37,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePaused();
+        }
     }
 
     IEnumerator SpawnTarget()
@@ -84,6 +91,22 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             GameOver();
+        }
+    }
+
+    void ChangePaused()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            isPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 }
